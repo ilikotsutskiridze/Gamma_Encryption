@@ -12,34 +12,34 @@ Shift by 7
 #include <vector>
 
 
-void shifr1(int kluch, int sdiv, std::string text)
+void shifr1(int key, int sdiv, std::string text)
 {
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
-    srand(kluch);
+    srand(key);
 
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
     int shifr1, shifr2, shifr3, shifr4;//зашифрованные 4 символа
-    int dlin; // Длина текста
+    int len; // Длина текста
 
    
 
 
-    dlin = text.length();
+    len = text.length();
 
     // Если текст не делиться нацело на блоки, прибавляем к тексту стоп-символ "="
 
-    while (dlin % 4 != 0)
+    while (len % 4 != 0)
     {
         text += '=';
-        dlin++;
+        len++;
     };
 
 
-    std::vector<int> vmass0(dlin, unsigned char("="));//создаем буфферный массив
-    std::vector<int> vmass1(dlin, unsigned char("="));
+    std::vector<int> vmass0(len, unsigned char("="));//создаем буфферный массив
+    std::vector<int> vmass1(len, unsigned char("="));
 
-    for (int i = 0; i < dlin; i = i + 4)
+    for (int i = 0; i < len; i = i + 4)
     {
         //создадим для первых 4 элементов гаммы
         gam = rand();
@@ -64,14 +64,14 @@ void shifr1(int kluch, int sdiv, std::string text)
 
     }
 
-    for (int i = 0; i < dlin; ++i) //сдвиг вправо на 7
-        vmass1[(i + sdiv) % dlin] = vmass0[i];
+    for (int i = 0; i < len; ++i) //сдвиг вправо на 7
+        vmass1[(i + sdiv) % len] = vmass0[i];
 
     // Если последний символ равен значению заглушки, удаляем его
-    while (vmass0[dlin - 1] == int("="))
+    while (vmass0[len - 1] == int("="))
     {
-        vmass0.erase(vmass0.begin() + dlin - 1);
-        dlin--;
+        vmass0.erase(vmass0.begin() + len - 1);
+        len--;
     }
 
 
@@ -80,23 +80,22 @@ void shifr1(int kluch, int sdiv, std::string text)
 
     std::cout << "\n\nЗашифрованный текст в символьном виде:\n";
 
-    for (int i = 0; i < dlin; i++)
+    for (int i = 0; i < len; i++)
         std::cout << unsigned char(vmass1[i]);
 
     std::cout << "\n\nЗашифрованный текст в виде десятичного кода:\n";
 
-    for (int i = 0; i < dlin; i++)
+    for (int i = 0; i < len; i++)
         std::cout << vmass1[i] << " ";
 
-    std::cout << "\n\n" << "Зашифровал;)\n";
-    std::cout << "Отлично, что будет дальше?\n\n";
+    std::cout << "\n\n" << "Зашифровал;)\nОтлично, что будет дальше?\n\n";
 }
 
 
-void shifr2(int kluch, int sdiv, std::string text)
+void shifr2(int key, int sdiv, std::string text)
 {
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
-    srand(kluch);
+    srand(key);
 
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
@@ -178,13 +177,13 @@ void shifr2(int kluch, int sdiv, std::string text)
 
 
 
-void rasshifr1(int kluch, int sdiv, std::string cod)
+void rasshifr1(int key, int sdiv, std::string cod)
 {
     ///
 
     cod = cod + " ";
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
-    srand(kluch);
+    srand(key);
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
     int rshifr1, rshifr2, rshifr3, rshifr4;//зашифрованные 4 символа
@@ -272,13 +271,13 @@ void rasshifr1(int kluch, int sdiv, std::string cod)
     std::cout << "Отлично, что будет дальше?\n\n";
 }
 
-void rasshifr2(int kluch, int sdiv, std::string cod)
+void rasshifr2(int key, int sdiv, std::string cod)
 {
     ///
 
     cod = cod + " ";
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
-    srand(kluch);
+    srand(key);
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
     int rshifr1, rshifr2, rshifr3, rshifr4;//зашифрованные 4 символа
