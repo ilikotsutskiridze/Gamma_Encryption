@@ -1,8 +1,8 @@
 ﻿/*
-вар 22
+Option 22
 
-4 байта
-сдвиг на 7
+4 byte
+Shift by 7
 */
 
 
@@ -10,14 +10,6 @@
 #include <clocale> //для setlocal>
 #include <string>
 #include <vector>
-
-
-
-
-
-
-
-
 
 
 void shifr1(int kluch, int sdiv, std::string text)
