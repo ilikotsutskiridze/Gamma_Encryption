@@ -4,11 +4,41 @@
 #include <clocale> //для setlocal>
 #include <string>
 #include <vector>
+#include <ctime>
 
 using std::cin;
 using std::cout;
 using std::vector;
 using std::string;
+using std::endl;
+
+//возвращает true если в строке знаковое целое
+bool isNum(string& s)
+{
+    if ((s[0] == '-') || (isdigit(s[0])))
+    {
+        for (size_t i = 1; i < size(s); ++i)
+            if (not(isdigit(s[0])))
+                return 0;
+    }
+    else
+        return 0;
+}
+
+void GenNewKey(string& key)
+{
+    cout << "Неверно введен ключ! Программа присвоит ключ автоматически!\n";
+    srand(time(0));
+    int newkey = rand();
+    cout << "Ваш новый ключ: " << newkey << std::endl;
+    key = std::to_string(newkey);
+}
+
+
+void EncryptHelper()
+{
+
+}
 
 
 void Encryption1(int key, int sdiv, string text)
@@ -18,7 +48,7 @@ void Encryption1(int key, int sdiv, string text)
 
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
-    int shifr1, shifr2, shifr3, shifr4;//зашифрованные 4 символа
+    int enc1, enc2, enc3, enc4;//зашифрованные 4 символа
     int len; // Длина текста
 
     len = text.length();
@@ -45,15 +75,15 @@ void Encryption1(int key, int sdiv, string text)
         sim4 = gam % 256;
 
         //выполним операцию xor для первых 4 элементов
-        shifr1 = unsigned char(sim1 ^ (text[i]));
-        shifr2 = unsigned char(sim2 ^ (text[i + 1]));
-        shifr3 = unsigned char(sim3 ^ (text[i + 2]));
-        shifr4 = unsigned char(sim4 ^ (text[i + 3]));
+        enc1 = unsigned char(sim1 ^ (text[i]));
+        enc2 = unsigned char(sim2 ^ (text[i + 1]));
+        enc3 = unsigned char(sim3 ^ (text[i + 2]));
+        enc4 = unsigned char(sim4 ^ (text[i + 3]));
         //запишем зашифрованные элементы в буферный массив
-        inmass0[i] = shifr1;
-        inmass0[i + 1] = shifr2;
-        inmass0[i + 2] = shifr3;
-        inmass0[i + 3] = shifr4;
+        inmass0[i] = enc1;
+        inmass0[i + 1] = enc2;
+        inmass0[i + 2] = enc3;
+        inmass0[i + 3] = enc4;
     }
 
     for (int i = 0; i < len; ++i) //сдвиг вправо на 7
@@ -88,7 +118,7 @@ void Encryption2(int key, int sdiv, string text)
 
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
-    int shifr1, shifr2, shifr3, shifr4;//зашифрованные 4 символа
+    int enc1, enc2, enc3, enc4;//зашифрованные 4 символа
     int dlin; // Длина текста
 
     dlin = text.length();
@@ -115,15 +145,15 @@ void Encryption2(int key, int sdiv, string text)
         sim4 = gam % 256;
 
         //выполним операцию xor для первых 4 элементов
-        shifr1 = unsigned char(sim1 ^ (text[i]));
-        shifr2 = unsigned char(sim2 ^ (text[i + 1]));
-        shifr3 = unsigned char(sim3 ^ (text[i + 2]));
-        shifr4 = unsigned char(sim4 ^ (text[i + 3]));
+        enc1 = unsigned char(sim1 ^ (text[i]));
+        enc2 = unsigned char(sim2 ^ (text[i + 1]));
+        enc3 = unsigned char(sim3 ^ (text[i + 2]));
+        enc4 = unsigned char(sim4 ^ (text[i + 3]));
         //запишем зашифрованные элементы в буферный массив
-        inmass0[i] = shifr1;
-        inmass0[i + 1] = shifr2;
-        inmass0[i + 2] = shifr3;
-        inmass0[i + 3] = shifr4;
+        inmass0[i] = enc1;
+        inmass0[i + 1] = enc2;
+        inmass0[i + 2] = enc3;
+        inmass0[i + 3] = enc4;
     }
 
     for (int i = 0; i < dlin; ++i)
@@ -158,7 +188,7 @@ void Decryption1(int key, int sdiv, string cod)
     srand(key);
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
-    int rshifr1, rshifr2, rshifr3, rshifr4;//зашифрованные 4 символа
+    int dec1, dec2, dec3, dec4;//зашифрованные 4 символа
     int dlin, dlin1; // Длина текста
     
     int a = 0;//создадим буферную переменную a
@@ -205,15 +235,15 @@ void Decryption1(int key, int sdiv, string cod)
         sim4 = gam % 256;
 
         //выполним операцию xor для первых 4 элементов
-        rshifr1 = unsigned char(sim1 ^ (inmass1[i]));
-        rshifr2 = unsigned char(sim2 ^ (inmass1[i + 1]));
-        rshifr3 = unsigned char(sim3 ^ (inmass1[i + 2]));
-        rshifr4 = unsigned char(sim4 ^ (inmass1[i + 3]));
+        dec1 = unsigned char(sim1 ^ (inmass1[i]));
+        dec2 = unsigned char(sim2 ^ (inmass1[i + 1]));
+        dec3 = unsigned char(sim3 ^ (inmass1[i + 2]));
+        dec4 = unsigned char(sim4 ^ (inmass1[i + 3]));
         //запишем зашифрованные элементы в буферный массив
-        inmass3[i] = rshifr1;
-        inmass3[i + 1] = rshifr2;
-        inmass3[i + 2] = rshifr3;
-        inmass3[i + 3] = rshifr4;
+        inmass3[i] = dec1;
+        inmass3[i + 1] = dec2;
+        inmass3[i + 2] = dec3;
+        inmass3[i + 3] = dec4;
     }
 
     // Если последний символ равен значению заглушки, удаляем его
@@ -238,7 +268,7 @@ void Decryption2(int key, int sdiv, string cod)
     srand(key);
     int gam; // Функция гамма для каждого блока
     int sim1, sim2, sim3, sim4; //первые четыре символа
-    int rshifr1, rshifr2, rshifr3, rshifr4;//зашифрованные 4 символа
+    int dec1, dec2, dec3, dec4;//зашифрованные 4 символа
     int dlin, dlin1; // Длина текста
 
     int a = 0;//создадим буферную переменную a
@@ -280,15 +310,15 @@ void Decryption2(int key, int sdiv, string cod)
         sim4 = gam % 256;
 
         //выполним операцию xor для первых 4 элементов
-        rshifr1 = unsigned char(sim1 ^ (inmass1[i]));
-        rshifr2 = unsigned char(sim2 ^ (inmass1[i + 1]));
-        rshifr3 = unsigned char(sim3 ^ (inmass1[i + 2]));
-        rshifr4 = unsigned char(sim4 ^ (inmass1[i + 3]));
+        dec1 = unsigned char(sim1 ^ (inmass1[i]));
+        dec2 = unsigned char(sim2 ^ (inmass1[i + 1]));
+        dec3 = unsigned char(sim3 ^ (inmass1[i + 2]));
+        dec4 = unsigned char(sim4 ^ (inmass1[i + 3]));
         //запишем зашифрованные элементы в буферный массив
-        inmass3[i] = rshifr1;
-        inmass3[i + 1] = rshifr2;
-        inmass3[i + 2] = rshifr3;
-        inmass3[i + 3] = rshifr4;
+        inmass3[i] = dec1;
+        inmass3[i + 1] = dec2;
+        inmass3[i + 2] = dec3;
+        inmass3[i + 3] = dec4;
     }
 
     // Если последний символ равен значению заглушки, удаляем его
@@ -310,7 +340,7 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    int a;
+    int mode;
     bool exit;
     exit = true;
 
@@ -321,57 +351,61 @@ int main()
         cout << "Введите 1, если хотите, чтобы программа работала в режиме расшифровки\n";
         cout << "Если хотите, чтобы программа завершила свою работу введите 2\n";
 
-        cin >> a;
+        cin >> mode;
 
-        if (a == 0)
+        if (mode == 0)
         {
-           cout << "\nВведите направление сдвига: vlevo или vpravo\n";
-            int kluch, prover;
-            string text, a;
-            cin >> a;
-            a = "vpravo";
-             cout << "\nВведите ключ для шифровки:\n";
-            cin >> kluch;
-            cout << "\nВведите текст, который нужно зашифровать:\n";
+           cout << "\nВведите направление сдвига: left или right\n";
+            string key = "";
+            string text, route;
+            cin >> route;
+            cout << "\nВведите ключ для шифровки:\n";
+            cin >> key;
 
+            if (not(isNum(key)))
+                GenNewKey(key);
+
+            cout << "\nВведите текст, который нужно зашифровать:\n";
             cin.ignore();
             std::getline(cin, text);
 
-            if (a == "vpravo")
-                Encryption1(kluch, 7, text);
-            if (a == "vlevo")
-                Encryption2(kluch, 7, text);
+            if (route == "right")
+                Encryption1(stoi(key), 7, text);
+            if (route == "left")
+                Encryption2(stoi(key), 7, text);
         }
 
-        if (a == 1)
+        if (mode == 1)
         {
-            int kluch1, prover1;
-            string a1;
+            string key;
+            string route;
 
-           cout << "\nВведите направление сдвига, который вы ввели во время шифровки: vlevo или vpravo\n";
-           cin >> a1;
-            a1 = "vpravo";
-            cout << "Введите ключ для расшифровки:(он должен равняться ключу, использованному для зашифровки этой сторки)\n";
-            cin >> kluch1;
+           cout << "\nВведите направление сдвига, который вы ввели во время шифровки: left или right\n";
+           cin >> route;
+           cout << "Введите ключ для расшифровки: (он должен равняться ключу, использованному для зашифровки этой сторки)\n";
+           cin >> key;
+
+           if (not(isNum(key)))
+               GenNewKey(key);
 
             cin.ignore();
             cout << "Введите код:\n";
-            string cod;
-            std::getline(cin, cod);
+            string code;
+            std::getline(cin, code);
 
-            if (a1 == "vpravo")
-                Decryption1(kluch1, 7, cod);
-            if (a1 == "vlevo")
-                Decryption2(kluch1, 7, cod);
+            if (route == "right")
+                Decryption1(stoi(key), 7, code);
+            if (route == "left")
+                Decryption2(stoi(key), 7, code);
         }
-        if (a == 2)
+        if (mode == 2)
         {
-            cout << "Работа программы завершена\n";
+            cout << "Работа программы завершена\n\n\n";
             exit = false;
         }
 
-        if ((a != 1) && (a != 0) && (a != 2))
-            cout << "Команда не распознана. Следуйте указаниям по выбору режима работы:\n";
+        if ((mode != 0) && (mode != 1) && (mode != 2))
+            cout << "Команда не распознана. Следуйте указаниям по выбору режима работы!\n\n\n";
     }
 }
 
