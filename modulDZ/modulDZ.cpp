@@ -11,7 +11,7 @@ using std::vector;
 using std::string;
 
 
-void shifr1(int key, int sdiv, string text)
+void Encryption1(int key, int sdiv, string text)
 {
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
     srand(key);
@@ -81,7 +81,7 @@ void shifr1(int key, int sdiv, string text)
     cout << "\n\n" << "Зашифровал;)\nОтлично, что будет дальше?\n\n";
 }
 
-void shifr2(int key, int sdiv, string text)
+void Encryption2(int key, int sdiv, string text)
 {
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
     srand(key);
@@ -151,7 +151,7 @@ void shifr2(int key, int sdiv, string text)
     cout << "\n\nЗашифровал;)\n\n\n";
 }
 
-void rasshifr1(int key, int sdiv, string cod)
+void Decryption1(int key, int sdiv, string cod)
 {
     cod = cod + " ";
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
@@ -231,7 +231,7 @@ void rasshifr1(int key, int sdiv, string cod)
     cout << "\n\nРасшифровал;)\nОтлично, что будет дальше?\n\n";
 }
 
-void rasshifr2(int key, int sdiv, string cod)
+void Decryption2(int key, int sdiv, string cod)
 {
     cod = cod + " ";
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
@@ -338,9 +338,9 @@ int main()
             std::getline(cin, text);
 
             if (a == "vpravo")
-                shifr1(kluch, 7, text);
+                Encryption1(kluch, 7, text);
             if (a == "vlevo")
-                shifr2(kluch, 7, text);
+                Encryption2(kluch, 7, text);
         }
 
         if (a == 1)
@@ -360,9 +360,9 @@ int main()
             std::getline(cin, cod);
 
             if (a1 == "vpravo")
-                rasshifr1(kluch1, 7, cod);
+                Decryption1(kluch1, 7, cod);
             if (a1 == "vlevo")
-                rasshifr2(kluch1, 7, cod);
+                Decryption2(kluch1, 7, cod);
         }
         if (a == 2)
         {
