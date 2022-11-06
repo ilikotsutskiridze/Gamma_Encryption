@@ -34,13 +34,6 @@ void GenNewKey(string& key)
     key = std::to_string(newkey);
 }
 
-
-void EncryptHelper()
-{
-
-}
-
-
 void Encryption(int key, int sdiv, string text, string route)
 {
     // Устанавливаем начальное значение генератора псевдослучайных чисел, равное ключу
